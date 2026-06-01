@@ -5,9 +5,12 @@ function App() {
   const [articles, setArticles] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:8080/wp-json/wp/v2/posts')
-      .then(reponse => reponse.json())
-      .then(data => setArticles(data))
+    async function chargerArticles() {
+      const reponse = await fetch('http://localhost:8080/wp-json/wp/v2/posts')
+      const data = await reponse.json()
+      setArticles(data)
+    }
+    chargerArticles()
   }, [])
 
   return (
